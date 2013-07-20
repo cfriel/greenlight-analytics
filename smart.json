@@ -1,0 +1,9 @@
+{
+	"name": "greenlight analytics",
+	"description": "Greenlight analytics site template",
+	"homepage": "https://github.com/cfriel/greenlight-analytics",
+	"author": "cfriel",
+	"version": "0.1.0",
+	"git": "https://github.com/cfriel/greenlight-analytics.git",
+	"packages": {}
+}
