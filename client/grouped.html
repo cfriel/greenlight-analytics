@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
+
+</style>
+<body>
+<script src="d3.v3.min.js"></script>
+<script>
+
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x0 = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var x1 = d3.scale.ordinal();
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x0)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(d3.format(".2s"));
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	var data = [
+	{ "State" : "AL","Under 5 Years" : 310504, "5 to 13 Years" : 552339, "14 to 17 Years" : 259034, "18 to 24 Years" : 450818, "25 to 44 Years" : 1231572, "45 to 64 Years" : 1215966, "65 Years and Over" : 641667},
+	{ "State" : "AK","Under 5 Years" : 52083, "5 to 13 Years" : 85640, "14 to 17 Years" : 42153, "18 to 24 Years" : 74257, "25 to 44 Years" : 198724, "45 to 64 Years" : 183159, "65 Years and Over" : 50277},
+	{ "State" : "AZ","Under 5 Years" : 515910, "5 to 13 Years" : 828669, "14 to 17 Years" : 362642, "18 to 24 Years" : 601943, "25 to 44 Years" : 1804762, "45 to 64 Years" : 1523681, "65 Years and Over" : 862573},
+	{ "State" : "AR","Under 5 Years" : 202070, "5 to 13 Years" : 343207, "14 to 17 Years" : 157204, "18 to 24 Years" : 264160, "25 to 44 Years" : 754420, "45 to 64 Years" : 727124, "65 Years and Over" : 407205},
+	{ "State" : "CA","Under 5 Years" : 2704659, "5 to 13 Years" : 4499890, "14 to 17 Years" : 2159981, "18 to 24 Years" : 3853788, "25 to 44 Years" : 10604510, "45 to 64 Years" : 8819342, "65 Years and Over" : 4114496},
+	{ "State" : "CO","Under 5 Years" : 358280, "5 to 13 Years" : 587154, "14 to 17 Years" : 261701, "18 to 24 Years" : 466194, "25 to 44 Years" : 1464939, "45 to 64 Years" : 1290094, "65 Years and Over" : 511094},
+	{ "State" : "CT","Under 5 Years" : 211637, "5 to 13 Years" : 403658, "14 to 17 Years" : 196918, "18 to 24 Years" : 325110, "25 to 44 Years" : 916955, "45 to 64 Years" : 968967, "65 Years and Over" : 478007},
+	{ "State" : "DE","Under 5 Years" : 59319, "5 to 13 Years" : 99496, "14 to 17 Years" : 47414, "18 to 24 Years" : 84464, "25 to 44 Years" : 230183, "45 to 64 Years" : 230528, "65 Years and Over" : 121688},
+	{ "State" : "DC","Under 5 Years" : 36352, "5 to 13 Years" : 50439, "14 to 17 Years" : 25225, "18 to 24 Years" : 75569, "25 to 44 Years" : 193557, "45 to 64 Years" : 140043, "65 Years and Over" : 70648},
+	{ "State" : "FL","Under 5 Years" : 1140516, "5 to 13 Years" : 1938695, "14 to 17 Years" : 925060, "18 to 24 Years" : 1607297, "25 to 44 Years" : 4782119, "45 to 64 Years" : 4746856, "65 Years and Over" : 3187797},
+	{ "State" : "GA","Under 5 Years" : 740521, "5 to 13 Years" : 1250460, "14 to 17 Years" : 557860, "18 to 24 Years" : 919876, "25 to 44 Years" : 2846985, "45 to 64 Years" : 2389018, "65 Years and Over" : 981024}
+	];
+
+  var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "State"; });
+
+  data.forEach(function(d) {
+    d.ages = ageNames.map(function(name) { return {name: name, value: +d[name]}; });
+  });
+
+  x0.domain(data.map(function(d) { return d.State; }));
+  x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
+  y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Population");
+
+  var state = svg.selectAll(".state")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "g")
+      .attr("transform", function(d) { return "translate(" + x0(d.State) + ",0)"; });
+
+  state.selectAll("rect")
+      .data(function(d) { return d.ages; })
+    .enter().append("rect")
+      .attr("width", x1.rangeBand())
+      .attr("x", function(d) { return x1(d.name); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+      .style("fill", function(d) { return color(d.name); });
+
+  var legend = svg.selectAll(".legend")
+      .data(ageNames.slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+</script>

@@ -1,0 +1,32 @@
+<template name="analytics_page">
+  <div>
+    <div id="query">    <form>
+        <textarea id="code" name="code">
+SELECT SQL_NO_CACHE DISTINCT
+@var1 AS `val1`, @'val2', @global.'sql_mode',
+1.1 AS `float_val`, .14 AS `another_float`, 0.09e3 AS `int_with_esp`,
+0xFA5 AS `hex`, x'fa5' AS `hex2`, 0b101 AS `bin`, b'101' AS `bin2`,
+DATE '1994-01-01' AS `sql_date`, { T "1994-01-01" } AS `odbc_date`,
+'myString', UNKNOWN
+FROM DUAL
+LIMIT 1 OFFSET 0
+VISUALIZE map;
+	</textarea>
+      </form>
+    </div>
+    <div id="tools">
+      <button id="btn-run" class="g-button blue">Run</button>
+      <span id="query-info"></span>
+      <div class="query-actions">
+	<button id="btn-download" class="g-button blue">Download</button>
+	<button id="btn-save" class="g-button blue">Save</button>
+	<button id="btn-data" class="g-button blue">Data</button>		
+	<button id="btn-visualize" class="g-button blue">Visualize</button>
+      </div>
+    </div>
+
+    <div id="slick-container" onload="init();"> 
+    </div>
+
+  </div>
+</template>
