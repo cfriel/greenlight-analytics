@@ -210,16 +210,9 @@ body {
 
 #query
 {
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     height: 200px;
     overflow: hidden;
-    margin: 20px;
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-bottom: 20px;
     border: 1px solid #eeeeee;
 }
 
@@ -367,4 +360,11 @@ option.g-select, a.g-select, input[type=submit].g-select
 
 #navbar ul li:hover {
     
+}
+
+.tab-borders
+{
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
 }

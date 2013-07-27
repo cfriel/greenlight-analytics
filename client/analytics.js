@@ -1,32 +1,45 @@
-Meteor.Router.add({
-    '/analytics*': function(path)
+var loadDatabases = function()
+{
+    Meteor.call('databases', function(err, result)
+		{
+		    if(err)
+		    {
+			console.log("Failed to load databases");
+		    }
+		    else
+		    {
+			Session.set("databases_loaded", true);
+		    }
+		});
+    
+};
+
+var ensureLoadDatabases = function()
+{
+    var databasesLoaded = Session.get("databases_loaded");
+
+    if(!databasesLoaded)
     {
-	if(path.length == 0)
-	{
-	}
-	else
-	{
-	    if(path.substring(0,1) == "/")
-	    {
-		path = path.substring(1, path.length);
-	    }
+	loadDatabases();
+    }
+};
 
-	    var splits = path.split("/");
+Meteor.Router.add({
+    '/analytics': function(path)
+    {
+	ensureLoadDatabases();
 
-	    if(splits.length == 2)
-	    {
-		var database = splits[0];
-		var collection = splits[1];
+	return 'analytics_page';
+    },
 
-		Session.set("analytics_page_database", database);
-		Session.set("analytics_page_collection", collection);
-		
-		return 'analytics_page';
-	    }
+    '/analytics/:database/:collection' : function(database, collection)
+    {
+ 
+	Session.set('analytics_page_database', database);
+	Session.set('analytics_page_collection', collection);
 
-	}
-	
+	ensureLoadDatabases();
+
 	return 'analytics_page';
     }
-
 });

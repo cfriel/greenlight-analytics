@@ -1,21 +1,42 @@
 <template name="analytics_page">
   <div>
+  <div class="span3">
+    <ul id="left-navbar" class="nav nav-tabs nav-stacked">
+      {{#each databases}}
+      <li>
+	<a href="#" style="font-weight: bold;">{{name}}</a>
+      </li>
+	  {{#each collections}}
+	  <li><a href="/analytics/{{database}}/{{name}}/">{{name}}</a></li>
+	  {{/each}}
+      {{/each}}
+    </ul>
+  </div>
 
-    <!--
-    <div id="tools">
-      <button id="btn-run" class="g-button blue">Run</button>
-      <span id="query-info"></span>
-      <div class="query-actions">
-	<button id="btn-download" class="g-button blue">Download</button>
-	<button id="btn-save" class="g-button blue">Save</button>
-	<button id="btn-data" class="g-button blue">Data</button>		
-	<button id="btn-visualize" class="g-button blue">Visualize</button>
+  <div class="span9">
+    <div id="query">    <form>
+        <textarea id="code" name="code">
+var x = 'dsflk';
+	</textarea>
+      </form>
+    </div>
+
+    <div class="tabbable"> <!-- Only required for left/right tabs -->
+      <ul class="nav nav-tabs" style="margin-bottom: 0px;">
+	<li class="active"><a href="#tab1" data-toggle="tab">Results</a></li>
+	<li><a href="#tab2" data-toggle="tab">Visualization</a></li>
+      </ul>
+      <div class="tab-content tab-borders">
+	<div class="tab-pane active" id="tab1">
+	  <div id="slick-container" > 
+	  </div>
+	</div>
+	<div class="tab-pane" id="tab2">
+	  <div id="visualization-container">
+	  </div>
+	</div>
       </div>
     </div>
-    -->
-
-    <div id="slick-container" > 
-    </div>
-
+  </div>
   </div>
 </template>
