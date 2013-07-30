@@ -3,6 +3,7 @@ Package.describe({
 });
 
 Package.on_use(function (api, where) {
+
     api.use('router', ['client', 'server']);
     api.use(['templating'], 'client');
     
