@@ -9,6 +9,7 @@ Meteor.startup(function(){
     {
 	console.log("registering " + name + " site template");
 	SiteTemplates.insert( { name : name, version : version } );
+	Greenlight.register_template(name, version);
     }
     
 });
