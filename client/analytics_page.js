@@ -208,19 +208,11 @@ var configureVisualization = function(){
 
 }
 
-Deps.autorun(function(){
-
-    if(Session.get("analytics_rendered"))
-    {
-	configureEditor();
-	configureGrid();
-	configureVisualization();
-    }
-});
-
 Template.analytics_page.rendered = function() 
 {
-    Session.set("analytics_rendered", true);
+    configureEditor();
+    configureGrid();
+    configureVisualization();
 }
 
 
