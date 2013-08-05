@@ -25,6 +25,17 @@ analytics.prototype.routes =   {
     }
 };
 
+analytics.prototype.default_route = {
+
+    '/' : function()
+    {
+	console.log("calling default route");
+
+	return 'analytics_page';
+    }
+
+};
+
 Analytics = analytics.prototype;
 
 console.log("loading analytics package");
