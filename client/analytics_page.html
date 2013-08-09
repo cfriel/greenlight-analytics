@@ -16,7 +16,20 @@
   <div class="col-lg-9">
     <div id="query">    <form>
         <textarea id="code" name="code">
-var x = 'dsflk';
+var chart = d3.select("#visualization-container").append("svg")
+     .data(Local)
+     .attr("class", "chart")
+     .attr("width", 420)
+     .attr("height", 20 * Local.length); 
+
+var x = d3.scale.linear();
+ 
+chart.selectAll("rect")
+     .data(function(d,i){ return d.funding_total_usd; } )
+     .enter().append("rect")
+     .attr("y", function(d, i) { return i * 20; })
+	 .attr("width", function(d,i) { return i*20;})
+     .attr("height", 20);
 	</textarea>
       </form>
     </div>

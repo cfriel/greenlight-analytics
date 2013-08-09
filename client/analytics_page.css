@@ -45,6 +45,16 @@
     left: 650px;
 }
 
+.slick-header-column .ui-state-default
+{
+    height: 30px;
+}
+
+.slick-header-columns
+{
+    height: 30px;
+}
+
 .slick-cell.task-name {
     font-weight: bold;
     text-align: right;
@@ -193,6 +203,12 @@ html, body {
 
 body {
     font: 11px Helvetica, Arial, sans-serif;
+}
+
+#slick-container
+{
+    margin-top: 10px;
+    height: 300px;
 }
 
 #container {
