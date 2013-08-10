@@ -44,8 +44,11 @@ analytics.prototype.default_route = {
 
 Greenlight.Packages.Analytics = analytics.prototype;
 
-console.log("loading analytics package");
+Meteor.startup(function(){
 
-Greenlight.register_template(name, version, Greenlight.Packages.Analytics);
+    console.log("loading analytics package");
+    
+    Greenlight.register_template(name, version, Greenlight.Packages.Analytics);
 
+});
 
