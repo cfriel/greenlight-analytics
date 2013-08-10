@@ -72,7 +72,7 @@ var renderGrid = function(columns, data)
         forceFitColumns: true
     };
     
-    grid = new Slick.Grid("#slick-container", data, columns, options);
+    grid = new Slick.Grid("#sheets-container", data, columns, options);
     
     grid.onSort.subscribe(function(e, args){ // args: sort information. 
 	var field = args.sortCol.field;
@@ -106,6 +106,15 @@ var rendered = false;
 Template.analytics_page.created = function()
 {
     rendered = false;
+
+    var title = "Analytics page loaded";
+    var description = "The created event of the profile page was called";
+    var source = "Template.analytics_page";
+    var audience = "";
+    var activity = new Greenlight.Activity(title, description, source, audience);
+
+    activity.save();
+
 }
 
 Template.analytics_page.rendered = function() 
