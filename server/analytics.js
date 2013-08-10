@@ -33,12 +33,12 @@ analytics.prototype.metadata = function()
     };
 }();
 
-Analytics = analytics.prototype;
+Greenlight.Packages.Analytics = analytics.prototype;
 
 Meteor.startup(function(){
     
     console.log("loading analytics package");
 
-    Greenlight.register_template(name, version, Analytics);
+    Greenlight.register_template(name, version, Greenlight.Packages.Analytics);
         
 });

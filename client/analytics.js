@@ -42,10 +42,10 @@ analytics.prototype.default_route = {
 
 };
 
-Analytics = analytics.prototype;
+Greenlight.Packages.Analytics = analytics.prototype;
 
 console.log("loading analytics package");
 
-Greenlight.register_template(name, version, Analytics);
+Greenlight.register_template(name, version, Greenlight.Packages.Analytics);
 
 
