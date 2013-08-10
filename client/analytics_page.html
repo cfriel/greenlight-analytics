@@ -2,13 +2,10 @@
   <div>
   <div class="col-lg-3">
     <ul id="left-navbar" class="nav nav-tabs nav-stacked">
-      {{#each databases}}
+      {{#each datasets}}
       <li>
-	<a href="#" style="font-weight: bold;">{{name}}</a>
+	<a href="/analytics/{{name}}">{{name}}</a>
       </li>
-	  {{#each collections}}
-	  <li><a href="/analytics/{{database}}/{{name}}/">{{name}}</a></li>
-	  {{/each}}
       {{/each}}
     </ul>
   </div>
@@ -41,7 +38,7 @@ chart.selectAll("rect")
       </ul>
       <div class="tab-content tab-borders">
 	<div class="tab-pane active" id="tab1">
-	  <div id="slick-container" > 
+	  <div id="analytics-container" > 
 	  </div>
 	</div>
 	<div class="tab-pane" id="tab2">

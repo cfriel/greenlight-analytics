@@ -14,12 +14,18 @@ analytics.prototype.routes =   {
 	return 'analytics_page';
     },
     
-    '/analytics/:database/:collection' : function(database, collection)
+    '/analytics/:dataset' : function(dataset)
     { 
-	console.log("calling /analytics/:database/:collection route");
+	console.log("calling /analytics/:dataset route");
 
-	Session.set('analytics_page_database', database);
-	Session.set('analytics_page_collection', collection);
+	Session.set('analytics_dataset', dataset);
+
+	var dataset = Greenlight.Dataset.findOne({ name: dataset });
+
+	if(dataset)
+	{
+	    Greenlight.Dataset.load(dataset);
+	}
 	
 	return 'analytics_page';
     }
