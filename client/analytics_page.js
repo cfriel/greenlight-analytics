@@ -3,6 +3,11 @@ Template.analytics_page.datasets = function ()
     return Greenlight.Dataset.Datasets.find({}, {sort: {name: 1}});
 };
 
+Template.analytics_page.root = function()
+{
+    return "/analytics";
+};
+
 var configureEditor = function()
 {
     var mime = ' text/javascript';
