@@ -38,7 +38,7 @@ chart.selectAll("rect")
      .attr("x", function(d, i) { return i * itemWidth; })
 	 .attr("height", function(d,i) { return y(d.funding_total_usd); })
      .attr("width", itemWidth - 5)
-	 .attr("fill", "#952C07");
+	 .attr("fill", "#056839");
 
 chart.selectAll("text")
 	.data(dd)
@@ -50,9 +50,9 @@ chart.selectAll("text")
 	.attr("transform", function(d,i){ return "rotate(90, " + i*itemWidth + " " + (height - y(d.funding_total_usd)) + ")"; })
 	.attr("dy", function(d) { return -8;} )
 	.attr("text-anchor", "end")
-    .attr("font-size", 12)
+        .attr("font-size", 12)
 	.text(function(d) { return d.name;})
-	.attr("fill", "white");
+	.attr("fill", "#91C5AC");
 		
 	</textarea>
       </form>
