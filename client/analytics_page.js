@@ -5,7 +5,16 @@ Template.analytics_page.datasets = function ()
 
 Template.analytics_page.root = function()
 {
-    return "/analytics";
+    var site = Session.get('site');
+    
+    if(site)
+    {
+	return '/'+site.url;
+    }
+    else
+    {
+	return "/analytics";
+    }
 };
 
 var configureEditor = function()

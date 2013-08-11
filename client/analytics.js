@@ -1,43 +1,60 @@
 var name = "analytics";
 var version = "1.0";
 
-analytics = function(){};
-
-analytics.prototype = new Greenlight.Package();
-
-analytics.prototype.routes =   {
-    
-    '/analytics': function()
+analytics = function(obj)
+{
+    if(obj)
     {
-	console.log("calling /analytics route");
-
-	return 'analytics_page';
-    },
-    
-    '/analytics/:dataset' : function(dataset)
-    { 
-	console.log("calling /analytics/:dataset route");
-
-	Session.set('analytics_dataset', dataset);
-
-	var dataset = Greenlight.Dataset.findOne({ name: dataset });
-
-	if(dataset)
-	{
-	    Greenlight.Dataset.load(dataset);
-	}
-	
-	return 'analytics_page';
+	this.init(obj);
     }
 };
 
-analytics.prototype.default_route = {
+analytics.prototype = new Greenlight.Package();
+analytics.prototype.constructor = analytics;
 
-    '/' : function()
+analytics.prototype.instantiate = function(site)
+{
+    var url = site.url;
+
+    if(url)
     {
-	console.log("calling default route");
+	var siteRoutes = function(site)
+	{
+	    var root = '/'+site.url;
 
-	return 'analytics_page';
+	    var roots = {};
+
+	    roots[root] = function(){
+
+		console.log("calling /analytics route");
+		Session.set('site', site);
+
+		return 'analytics_page';
+
+	    };
+		
+	    roots[root+'/:dataset'] = function(dataset){
+		
+		console.log("calling /analytics/:dataset route");
+		Session.set('site', site);
+		Session.set('analytics_dataset', dataset);
+
+		var dataset = Greenlight.Dataset.findOne({ name: dataset });
+		
+		if(dataset)
+		{
+		    Greenlight.Dataset.load(dataset);
+		}
+		
+		return 'analytics_page';
+	    };
+		
+
+	    return roots;
+
+	}(site);
+	    
+	Meteor.Router.add(siteRoutes);
     }
 
 };
