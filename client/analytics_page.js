@@ -1,6 +1,11 @@
 Template.analytics_page.datasets = function () 
 {
-    return Greenlight.Datasets.find({}, {sort: {name: 1}});
+    var site = Session.get('site');
+
+    if(site)
+    {
+	return Greenlight.Datasets.find({_id : {$in : site.collections}}, {sort: {name: 1}});
+    }
 };
 
 Template.analytics_page.root = function()
