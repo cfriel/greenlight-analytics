@@ -15,34 +15,53 @@
         <textarea id="code" name="code">
 var dd = Greenlight.Packages.Analytics.Data;
 var height = 420;
+var itemWidth = 30;
+
+dd.sort(function(a,b) { return a.funding_total_usd - b.funding_total_usd; });
+
+dd = dd.slice(dd.length - 25, dd.length);
 
 var chart = d3.select("#visualization-container").append("svg")
      .data(dd)
      .attr("class", "chart")
-     .attr("width", 10*dd.length)
-     .attr("height", height); 
+     .attr("width", itemWidth*dd.length)
+     .attr("height", height);  
 
 var y = d3.scale.linear().domain([0, d3.max(dd, function(d) { return d.funding_total_usd; })]).range([0, 420]);
 
-var x = d3.scale.linear().domain([0, dd.length]).range([0, dd.length * 5]);
+var x = d3.scale.linear().domain([0, dd.length]).range([0, dd.length * itemWidth]);
  
 chart.selectAll("rect")
 	 .data(dd)
      .enter().append("rect")
 	 .attr("y", function(d, i) { return height - y(d.funding_total_usd);})
-     .attr("x", function(d, i) { return i * 10; })
+     .attr("x", function(d, i) { return i * itemWidth; })
 	 .attr("height", function(d,i) { return y(d.funding_total_usd); })
-     .attr("width", 10)
-	 .attr("fill", "#056839");
-	
+     .attr("width", itemWidth - 5)
+	 .attr("fill", "#952C07");
+
+chart.selectAll("text")
+	.data(dd)
+	.enter()
+	.append("svg:text")
+	.attr("x", function(d, i) {  return i * itemWidth;  })
+	.attr("y", function(d) { return height - y(d.funding_total_usd); })
+	.attr("dx", function(d) { return y(d.funding_total_usd) - 10;} )
+	.attr("transform", function(d,i){ return "rotate(90, " + i*itemWidth + " " + (height - y(d.funding_total_usd)) + ")"; })
+	.attr("dy", function(d) { return -8;} )
+	.attr("text-anchor", "end")
+    .attr("font-size", 12)
+	.text(function(d) { return d.name;})
+	.attr("fill", "white");
+		
 	</textarea>
       </form>
     </div>
 
     <div class="tabbable"> <!-- Only required for left/right tabs -->
       <ul class="nav nav-tabs" style="margin-bottom: 0px;">
-	<li class="active"><a href="#tab1" data-toggle="tab">Results</a></li>
-	<li><a href="#tab2" data-toggle="tab">Visualization</a></li>
+	<li class="active"><a id="results-tab" href="#tab1" data-toggle="tab">Results</a></li>
+	<li><a id="visualization-tab" href="#tab2" data-toggle="tab">Visualization</a></li>
       </ul>
       <div class="tab-content tab-borders">
 	<div class="tab-pane active" id="tab1">

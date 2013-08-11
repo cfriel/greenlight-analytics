@@ -1,3 +1,5 @@
+
+
 Template.analytics_page.datasets = function () 
 {
     var site = Session.get('site');
@@ -35,19 +37,32 @@ var configureEditor = function()
     });
     
     window.editor.on("change", function(cm) { 
+
 	var text = cm.getValue(); 
 
-	clearTimeout($(this).data('timeout'));
-	$(this).data('timeout', setTimeout(function(){
-	    $('#visualization-container').html('');
-	    eval(text);
-	}, 2000));
+	renderVisualization(text);
 
     });
 
 };
 
-var Local = null;
+var renderVisualization = function(text)
+{    
+    clearTimeout($(this).data('timeout'));
+ 
+    $(this).data('timeout', setTimeout(function(){
+	$('#visualization-container').html('');
+	eval(text);
+    }, 2000));
+    
+};
+
+Template.analytics_page.events = {
+    'click #visualization-tab': function(){
+	var text = window.editor.getValue();
+	renderVisualization(text);
+    }
+};
 
 Deps.autorun(function(){
     
