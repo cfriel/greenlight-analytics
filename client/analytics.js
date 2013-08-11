@@ -48,7 +48,7 @@ Meteor.startup(function(){
 
     console.log("loading analytics package");
     
-    Greenlight.register_template(name, version, Greenlight.Packages.Analytics);
+    Greenlight.register_package(name, version, Greenlight.Packages.Analytics);
 
 });
 
