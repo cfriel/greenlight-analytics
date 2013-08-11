@@ -39,6 +39,7 @@ var configureEditor = function()
 
 	clearTimeout($(this).data('timeout'));
 	$(this).data('timeout', setTimeout(function(){
+	    $('#visualization-container').html('');
 	    eval(text);
 	}, 2000));
 
@@ -64,7 +65,8 @@ Deps.autorun(function(){
 	var query = { _collection : dataset.collection };
 	
 	var data = Data.find(query, {limit : 100}).fetch();
-	
+	Greenlight.Packages.Analytics.Data = data;
+
 	var columns = [];
 	var keys = Object.keys(schema);
 	
@@ -88,7 +90,7 @@ Template.analytics_page.created = function()
     var description = "The created event of the profile page was called";
     var source = "Template.analytics_page";
     var audience = "";
-    var activity = new Greenlight.Activity(title, description, source, audience);
+    var activity = new Greenlight.Activity({title:title, description:description, source:source, audience:audience});
 
     activity.save();
 

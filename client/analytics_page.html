@@ -13,20 +13,28 @@
   <div class="col-lg-9">
     <div id="query">    <form>
         <textarea id="code" name="code">
-var chart = d3.select("#visualization-container").append("svg")
-     .data(Local)
-     .attr("class", "chart")
-     .attr("width", 420)
-     .attr("height", 20 * Local.length); 
+var dd = Greenlight.Packages.Analytics.Data;
+var height = 420;
 
-var x = d3.scale.linear();
+var chart = d3.select("#visualization-container").append("svg")
+     .data(dd)
+     .attr("class", "chart")
+     .attr("width", 10*dd.length)
+     .attr("height", height); 
+
+var y = d3.scale.linear().domain([0, d3.max(dd, function(d) { return d.funding_total_usd; })]).range([0, 420]);
+
+var x = d3.scale.linear().domain([0, dd.length]).range([0, dd.length * 5]);
  
 chart.selectAll("rect")
-     .data(function(d,i){ return d.funding_total_usd; } )
+	 .data(dd)
      .enter().append("rect")
-     .attr("y", function(d, i) { return i * 20; })
-	 .attr("width", function(d,i) { return i*20;})
-     .attr("height", 20);
+	 .attr("y", function(d, i) { return height - y(d.funding_total_usd);})
+     .attr("x", function(d, i) { return i * 10; })
+	 .attr("height", function(d,i) { return y(d.funding_total_usd); })
+     .attr("width", 10)
+	 .attr("fill", "#056839");
+	
 	</textarea>
       </form>
     </div>
