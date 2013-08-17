@@ -6,6 +6,9 @@ Package.on_use(function (api, where) {
 
     api.use('router', ['client', 'server']);
     api.use(['templating'], 'client');
+    api.use('deps', ['client', 'server']);
+    api.use('session', ['client', 'server']);
+    api.use('greenlight', ['client','server']);
     
     api.add_files(['lib/jquery.event.drag-2.0.min.js', 'lib/jquery.event.drop-2.0.min.js', 'lib/slick.grid.css', 'lib/slick.core.js', 'lib/slick.grid.js', 'lib/slick.editors.js', 'lib/slick.cellcopymanager.js', 'lib/slick.cellrangeselector.js', 'lib/slick.cellselectionmodel.js', 'lib/slick.cellrangedecorator.js', 'lib/slick-default-theme.css'], 'client');
 

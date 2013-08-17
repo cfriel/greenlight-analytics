@@ -26,7 +26,7 @@ analytics.prototype.instantiate = function(site)
 
 	    roots[root] = function(){
 
-		console.log("calling /analytics route");
+		Greenlight.log("calling /analytics route");
 		Session.set('site', site);
 
 		return 'analytics_page';
@@ -35,7 +35,7 @@ analytics.prototype.instantiate = function(site)
 		
 	    roots[root+'/:dataset'] = function(dataset){
 		
-		console.log("calling /analytics/:dataset route");
+		Greenlight.log("calling /analytics/:dataset route");
 		Session.set('site', site);
 		Session.set('analytics_dataset', dataset);
 
@@ -63,7 +63,7 @@ Greenlight.Packages.Analytics = analytics.prototype;
 
 Meteor.startup(function(){
 
-    console.log("loading analytics package");
+    Greenlight.log("loading analytics package");
     
     Greenlight.register_package(name, version, Greenlight.Packages.Analytics);
 

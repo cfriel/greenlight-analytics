@@ -26,14 +26,13 @@ Template.analytics_page.root = function()
 
 var configureEditor = function()
 {
-    var mime = ' text/javascript';
-    
     window.editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-        indentWithTabs: true,
-        smartIndent: true,
+	mode: "javascript",
+        //indentWithTabs: true,
+        //smartIndent: true,
         lineNumbers: true,
-        matchBrackets : true,
-        autofocus: true
+        //matchBrackets : true,
+        //autofocus: true
     });
     
     window.editor.on("change", function(cm) { 

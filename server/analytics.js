@@ -9,14 +9,14 @@ analytics.prototype.routes =   {
     
     '/analytics': function()
     {
-	console.log("calling /analytics route");
+	Greenlight.log("calling /analytics route");
 
 	return 'analytics_page';
     },
     
     '/analytics/:database/:collection' : function(database, collection)
     { 
-	console.log("calling /analytics/:database/:collection route");
+	Greenlight.log("calling /analytics/:database/:collection route");
 
 	Session.set('analytics_page_database', database);
 	Session.set('analytics_page_collection', collection);
@@ -37,7 +37,7 @@ Greenlight.Packages.Analytics = analytics.prototype;
 
 Meteor.startup(function(){
     
-    console.log("loading analytics package");
+    Greenlight.log("loading analytics package");
 
     Greenlight.register_package(name, version, Greenlight.Packages.Analytics);
         
