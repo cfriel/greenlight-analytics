@@ -2,7 +2,14 @@
   <div>
   <div class="col-lg-3">
     <ul id="left-navbar" class="nav nav-tabs nav-stacked">
+      <li><a href="#">Datasets</a></li>
       {{#each datasets}}
+      <li>
+	<a href="{{root}}/{{name}}">{{name}}</a>
+      </li>
+      {{/each}}
+      <li><a href="#">Scripts</a></li>
+      {{#each script}}
       <li>
 	<a href="{{root}}/{{name}}">{{name}}</a>
       </li>
