@@ -48,6 +48,15 @@ analytics.prototype.instantiate = function(site)
 		
 		return 'analytics_page';
 	    };
+
+	    roots[root+'/scripts/:script'] = function(script){
+		
+		Greenlight.log("calling /scripts/:dataset route");
+		Session.set('site', site);
+		Session.set('analytics_script', script);
+		
+		return 'analytics_page';
+	    };
 		
 
 	    return roots;

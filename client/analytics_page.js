@@ -1,4 +1,44 @@
+Deps.autorun(function(){
+    
+    var script = Session.get("analytics_script");
+    var site = Session.get('site');
 
+    if(script && site)
+    {
+	var code = $("#code");
+
+	if(code)
+	{
+	    var s = site.attachments[script];
+	    
+	    if(s)
+	    {
+		editor.setValue(s);
+	    }
+	}
+    }
+
+});
+
+Template.analytics_page.scripts = function()
+{
+    var site = Session.get('site');
+    
+    if(site)
+    {
+	if(site.attachments)
+	{
+	    var scripts = [];
+
+	    _.each(site.attachments, function(val, key){
+		scripts.push({name: key, text: val});
+	    });
+
+	    return scripts;
+	}
+    }
+
+};
 
 Template.analytics_page.datasets = function () 
 {
@@ -51,7 +91,14 @@ var renderVisualization = function(text)
  
     $(this).data('timeout', setTimeout(function(){
 	$('#visualization-container').html('');
-	eval(text);
+	try
+	{
+	    eval(text);
+	}
+	catch(ex)
+	{
+	    Greenlight.log("Error evaluating script, %s", [ex]);
+	}
     }, 2000));
     
 };
@@ -59,7 +106,23 @@ var renderVisualization = function(text)
 Template.analytics_page.events = {
     'click #visualization-tab': function(){
 	var text = window.editor.getValue();
+
 	renderVisualization(text);
+    },
+    'click #save' : function()
+    {
+	var site = Session.get('site');
+	var text = window.editor.getValue();
+	var scriptName = $('#script-name').val();
+
+	if(scriptName)
+	{
+	    Greenlight.log('saving script');
+
+	    var s = new Greenlight.Site(site);
+
+	    s.attach(scriptName, text);
+	}
     }
 };
 

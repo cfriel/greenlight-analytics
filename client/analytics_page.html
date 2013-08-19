@@ -2,22 +2,24 @@
   <div>
   <div class="col-lg-3">
     <ul id="left-navbar" class="nav nav-tabs nav-stacked">
-      <li><a href="#">Datasets</a></li>
+      <li><a href="#"><b>Datasets</b></a></li>
       {{#each datasets}}
       <li>
 	<a href="{{root}}/{{name}}">{{name}}</a>
       </li>
       {{/each}}
-      <li><a href="#">Scripts</a></li>
-      {{#each script}}
+      <li><a href="#"><b>Scripts</b></a></li>
+      {{#each scripts}}
       <li>
-	<a href="{{root}}/{{name}}">{{name}}</a>
+	<a href="{{root}}/scripts/{{name}}">{{name}}</a>
       </li>
       {{/each}}
     </ul>
   </div>
 
   <div class="col-lg-9">
+    <input id="script-name" class="form-control" type="text" placeholder="script name"/>
+    
     <div id="query">    <form>
         <textarea id="code" name="code">
 var dd = Greenlight.Packages.Analytics.Data;
@@ -62,6 +64,18 @@ chart.selectAll("text")
 	.attr("fill", "#91C5AC");
 		
 	</textarea>
+      </form>
+    </div>
+
+    <div class="script-buttons">
+      <form class="form-inline" role="form">
+	<button id="cancel" class="btn" type="button">
+	    Cancel
+	  </button>
+	  <button id="save" class="btn btn-primary" type="button">
+	    <i class="icon-save icon-white"/>
+	    <span>Save</span>
+	  </button>
       </form>
     </div>
 
