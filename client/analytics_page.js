@@ -122,6 +122,8 @@ Template.analytics_page.events = {
 	    var s = new Greenlight.Site(site);
 
 	    s.attach(scriptName, text);
+
+	    Session.set('site', s);
 	}
     }
 };
