@@ -1,6 +1,6 @@
-Deps.autorun(function(){
-    
-    var script = Session.get("analytics_script");
+var bind_code = function()
+{
+    var script = Session.get('analytics_script');
     var site = Session.get('site');
 
     if(script && site)
@@ -18,7 +18,9 @@ Deps.autorun(function(){
 	}
     }
 
-});
+};
+
+Deps.autorun(bind_code);
 
 Template.analytics_page.scripts = function()
 {
@@ -64,7 +66,7 @@ Template.analytics_page.root = function()
     }
 };
 
-var configureEditor = function()
+var configure_editor = function()
 {
     window.editor = CodeMirror.fromTextArea(document.getElementById('code'), {
 	mode: "javascript",
@@ -128,8 +130,7 @@ Template.analytics_page.events = {
     }
 };
 
-Deps.autorun(function(){
-    
+var bind_grid = function(){
     var data = [];
     var columns = [];
     
@@ -156,15 +157,13 @@ Deps.autorun(function(){
 	
 	var grid = Greenlight.Helpers.create_slickgrid("#analytics-container", data, columns);	
     }
-});
+};
 
+Deps.autorun(bind_grid);
 
-var rendered = false;
 
 Template.analytics_page.created = function()
 {
-    rendered = false;
-
     var title = "Analytics page loaded";
     var description = "The created event of the profile page was called";
     var source = "Template.analytics_page";
@@ -172,15 +171,11 @@ Template.analytics_page.created = function()
     var activity = new Greenlight.Activity({title:title, description:description, source:source, audience:audience});
 
     activity.save();
-
-}
+};
 
 Template.analytics_page.rendered = function() 
 {
-    if(!rendered)
-    {
-	rendered = true;
-
-	configureEditor();
-    }
-}
+    bind_grid();
+    configure_editor();
+    bind_code();
+};
