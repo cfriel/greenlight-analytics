@@ -43,6 +43,8 @@ analytics.prototype.instantiate = function(site)
 		
 		if(dataset)
 		{
+		    // cfriel - load a bit of data
+		    dataset.count = 50000;
 		    Greenlight.Dataset.load(dataset);
 		}
 		
