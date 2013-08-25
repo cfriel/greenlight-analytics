@@ -6,18 +6,20 @@ This site is about calculating analytics on the basis of data.
 map example
 ===========
 
-var width = 960,
-    height = 500,
+var dd = Greenlight.Packages.Analytics.Data;
+
+var width = 520,
+    height = 300,
     centered;
 
 var projection = d3.geo.albersUsa()
-    .scale(1070)
+    .scale(500)
     .translate([width / 2, height / 2]);
 
 var path = d3.geo.path()
     .projection(projection);
-
-var svg = d3.select("body").append("svg")
+ 
+var svg = d3.select("#visualization-container").append("svg")
     .attr("width", width)
     .attr("height", height);
 
@@ -29,7 +31,7 @@ svg.append("rect")
 
 var g = svg.append("g");
 
-d3.json("/mbostock/raw/4090846/us.json", function(error, us) {
+d3.json("/us.json", function(error, us) {
   g.append("g")
       .attr("id", "states")
     .selectAll("path")
@@ -42,6 +44,32 @@ d3.json("/mbostock/raw/4090846/us.json", function(error, us) {
       .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
       .attr("id", "state-borders")
       .attr("d", path);
+
+    
+     g.selectAll("circle")
+        .data(dd)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d) {
+        	var splits = (""+d.loc).split(",");
+            var lon = splits[0];
+            var lat = splits[1];
+            return projection([lon, lat])[0];
+        })
+        .attr("cy", function(d) {
+            var splits = (""+d.loc).split(",");
+            var lon = splits[0];
+            var lat = splits[1];
+
+            return projection([lon, lat])[1];
+        })
+        .attr("r", function(d)
+{
+	return d.pop / 10000.0;
+})
+        .style("fill", "green")
+        .style("opacity", 0.75);
+    
 });
 
 function clicked(d) {
@@ -68,3 +96,20 @@ function clicked(d) {
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
       .style("stroke-width", 1.5 / k + "px");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

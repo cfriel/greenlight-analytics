@@ -144,7 +144,7 @@ var bind_grid = function(){
 	
 	var query = { _collection : dataset.collection };
 	
-	var data = Data.find(query, {limit : 100}).fetch();
+	var data = Data.find(query, {limit : 500}).fetch();
 	Greenlight.Packages.Analytics.Data = data;
 
 	var columns = [];
